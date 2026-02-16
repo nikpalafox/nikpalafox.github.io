@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikolas Palafox - Gen AI Product Leader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --accent: #0066ff;
+            --text: #2d2d2d;
+            --light: #f8f9fa;
+            --border: #e0e0e0;
+            --gradient-start: #00c6ff;
+            --gradient-end: #0072ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            color: var(--text);
+            background: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 102, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Header */
+        header {
+            padding: 2rem 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover::after {
+            transform: scaleX(1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a::before {
+            content: '>';
+            position: absolute;
+            left: -15px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        nav a:hover::before {
+            opacity: 1;
+            left: -20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 6rem 0 4rem;
+            position: relative;
+            animation: fadeIn 0.8s ease-out 0.2s both;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-weight: 400;
+        }
+
+        .hero-text .highlight {
+            background: linear-gradient(120deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-style: italic;
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .stat {
+            position: relative;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(120deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 500px;
+        }
+
+        .card-float {
+            position: absolute;
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+
+        .card-1 {
+            top: 50px;
+            left: 50px;
+            width: 250px;
+            animation-delay: 0s;
+        }
+
+        .card-2 {
+            top: 200px;
+            right: 80px;
+            width: 220px;
+            animation-delay: 1s;
+        }
+
+        .card-3 {
+            bottom: 100px;
+            left: 100px;
+            width: 200px;
+            animation-delay: 2s;
+        }
+
+        .card-title {
+            font-size: 0.85rem;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-content {
+            font-size: 1.1rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .section-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+        }
+
+        /* Experience Cards */
+        .experience-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .experience-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+            animation: slideInRight 0.6s ease-out both;
+        }
+
+        .experience-card:nth-child(1) { animation-delay: 0.1s; }
+        .experience-card:nth-child(2) { animation-delay: 0.2s; }
+        .experience-card:nth-child(3) { animation-delay: 0.3s; }
+        .experience-card:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .experience-card:hover {
+            border-left-color: var(--accent);
+            box-shadow: 0 8px 30px rgba(0, 102, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1.5rem;
+        }
+
+        .company-logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .experience-title {
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .company-name {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .experience-date {
+            color: #999;
+            font-size: 0.85rem;
+        }
+
+        .experience-description {
+            color: #555;
+            line-height: 1.8;
+            margin-top: 1rem;
+        }
+
+        /* Expandable Card Interaction */
+        .experience-card {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .expand-icon {
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(0, 198, 255, 0.1), rgba(0, 114, 255, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
+            margin-left: 1rem;
+        }
+
+        .experience-card.expanded .expand-icon {
+            transform: rotate(45deg);
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+        }
+
+        .experience-details {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                        opacity 0.4s ease, 
+                        margin 0.4s ease,
+                        padding 0.4s ease;
+            margin-top: 0;
+            padding-top: 0;
+            border-top: 0px solid transparent;
+        }
+
+        .experience-card.expanded .experience-details {
+            max-height: 600px;
+            opacity: 1;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .detail-section {
+            margin-bottom: 1.25rem;
+        }
+
+        .detail-heading {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .detail-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: baseline;
+            gap: 0.75rem;
+            color: #555;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .detail-marker {
+            color: var(--accent);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .detail-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.25rem;
+        }
+
+        .tag {
+            padding: 0.35rem 0.85rem;
+            background: linear-gradient(135deg, rgba(0, 198, 255, 0.08), rgba(0, 114, 255, 0.08));
+            border: 1px solid rgba(0, 102, 255, 0.15);
+            border-radius: 100px;
+            font-size: 0.78rem;
+            color: var(--accent);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .experience-card.expanded .tag:hover {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            border-color: transparent;
+            transform: translateY(-1px);
+        }
+
+        .experience-card:hover .expand-icon {
+            transform: scale(1.1);
+        }
+
+        .experience-card.expanded:hover .expand-icon {
+            transform: rotate(45deg) scale(1.1);
+        }
+
+        /* Click hint on first card */
+        .experience-card:first-child::after {
+            content: 'Click to expand';
+            position: absolute;
+            bottom: 1rem;
+            right: 2rem;
+            font-size: 0.75rem;
+            color: #bbb;
+            letter-spacing: 0.5px;
+            transition: opacity 0.4s ease;
+            animation: hintPulse 2s ease-in-out infinite;
+        }
+
+        .experience-card:first-child.expanded::after {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @keyframes hintPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .experience-card {
+            position: relative;
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            animation: scaleIn 0.5s ease-out both;
+        }
+
+        .skill-card:nth-child(1) { animation-delay: 0.1s; }
+        .skill-card:nth-child(2) { animation-delay: 0.2s; }
+        .skill-card:nth-child(3) { animation-delay: 0.3s; }
+        .skill-card:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 102, 255, 0.15);
+        }
+
+        .skill-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .skill-name {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        /* Education Section */
+        .education-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--accent);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .education-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .school-logo {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ffcb05, #00274c);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .degree-title {
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .school-name {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        /* Highlights Section */
+        .highlights {
+            padding: 3rem 0 1rem;
+        }
+
+        .highlights-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #999;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .highlight-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.75rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            display: flex;
+            gap: 1.25rem;
+            align-items: start;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            animation: fadeIn 0.8s ease-out both;
+        }
+
+        .highlight-card:nth-child(2) {
+            animation-delay: 0.15s;
+        }
+
+        .highlight-card:hover {
+            box-shadow: 0 8px 30px rgba(0, 102, 255, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .highlight-icon {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .highlight-icon.peregrine {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .highlight-icon.visa {
+            background: linear-gradient(135deg, #1a1f71, #f7b600);
+        }
+
+        .highlight-info h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .highlight-info p {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .highlight-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.2rem 0.6rem;
+            border-radius: 100px;
+            margin-bottom: 0.4rem;
+        }
+
+        .highlight-badge.live {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+        }
+
+        .highlight-badge.shipped {
+            background: rgba(0, 102, 255, 0.1);
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .highlights-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Projects Section */
+        .project-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.8s ease-out both;
+        }
+
+        .project-card:hover {
+            box-shadow: 0 12px 40px rgba(0, 102, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .project-banner {
+            height: 180px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: gridMove 15s linear infinite;
+        }
+
+        .project-banner-text {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2.2rem;
+            color: white;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .project-banner-text span {
+            display: block;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-top: 0.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .project-body {
+            padding: 2.5rem;
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .project-desc {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-feature {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            color: #555;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .project-feature-marker {
+            color: var(--accent);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.5rem;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .project-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .project-features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            text-align: center;
+            padding: 5rem 0;
+            margin-top: 5rem;
+        }
+
+        .contact-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .contact-text {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .social-link:hover {
+            background: white;
+            color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        footer p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-visual {
+                display: none;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .experience-header {
+                flex-direction: column;
+            }
+
+            .skills-container {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">NP</a>
+                <ul>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>
+                        Nikolas Palafox<br>
+                        <span class="highlight">Gen AI Product Leader</span>
+                    </h1>
+                    <p class="subtitle">
+                        Building the future of AI-powered financial products at Visa. 
+                        From defining Gen AI strategy for global payments to advising health-tech startups, 
+                        I turn complex data and emerging technology into products people love.
+                    </p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">3.7+</span>
+                            <span class="stat-label">Years Experience</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">500+</span>
+                            <span class="stat-label">Connections</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">1.3K</span>
+                            <span class="stat-label">Followers</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-visual">
+                    <div class="card-float card-1">
+                        <div class="card-icon">V</div>
+                        <div class="card-title">Current Role</div>
+                        <div class="card-content">Gen AI Product at Visa</div>
+                    </div>
+                    <div class="card-float card-2">
+                        <div class="card-icon">🎓</div>
+                        <div class="card-title">Education</div>
+                        <div class="card-content">University of Michigan</div>
+                    </div>
+                    <div class="card-float card-3">
+                        <div class="card-icon">⚡</div>
+                        <div class="card-title">Expertise</div>
+                        <div class="card-content">Product & AI</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="highlights">
+        <div class="container">
+            <div class="highlights-label">Featured Work</div>
+            <div class="highlights-grid">
+                <a href="https://peregrine-ai-tutor-platform.vercel.app/" target="_blank" class="highlight-card">
+                    <div class="highlight-icon peregrine">P</div>
+                    <div class="highlight-info">
+                        <span class="highlight-badge live">Live Project</span>
+                        <h3>Peregrine AI Tutor</h3>
+                        <p>Full-stack AI tutoring platform with personalized learning, voice interaction, and gamification. Built with FastAPI + OpenAI.</p>
+                    </div>
+                </a>
+                <div class="highlight-card">
+                    <div class="highlight-icon visa">V</div>
+                    <div class="highlight-info">
+                        <span class="highlight-badge shipped">Shipped at Visa</span>
+                        <h3>Visa Direct Stablecoin</h3>
+                        <p>Helped bring stablecoin settlement capabilities to Visa Direct, enabling real-time digital currency payments across the network.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Experience</h2>
+                <p class="section-subtitle">
+                    A journey through product management, data analysis, and AI innovation.
+                </p>
+            </div>
+
+            <div class="experience-grid">
+
+                <!-- Visa Senior Associate PM -->
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <div>
+                            <div class="company-logo">V</div>
+                        </div>
+                        <div style="flex: 1; margin-left: 1.5rem;">
+                            <h3 class="experience-title">Senior Associate Product Manager</h3>
+                            <p class="company-name">Visa</p>
+                            <p class="experience-date">Sep 2024 - Present · 6 months</p>
+                            <p class="experience-date">San Francisco, California, United States</p>
+                        </div>
+                        <div class="expand-icon">+</div>
+                    </div>
+                    <p class="experience-description">
+                        Product lead for the Visa Direct Stablecoin Pilot and driving Gen AI adoption across client-facing products.
+                    </p>
+                    <div class="experience-details">
+                        <div class="detail-section">
+                            <h4 class="detail-heading">What I Do</h4>
+                            <div class="detail-items">
+                                <div class="detail-item">
+                                    <span class="detail-marker">&rarr;</span>
+                                    Product lead for a partner integration stream of the Visa Direct Stablecoin Pilot
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-marker">&rarr;</span>
+                                    Partnered with cross-functional teams as an internal solution architect to design and prototype Gen AI solutions
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-marker">&rarr;</span>
+                                    Responsible for the release of the first Gen AI feature into a client-facing portal
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-tags">
+                            <span class="tag">Gen AI</span>
+                            <span class="tag">Stablecoin</span>
+                            <span class="tag">Visa Direct</span>
+                            <span class="tag">Solution Architecture</span>
+                            <span class="tag">Payments</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visa Associate PM -->
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <div>
+                            <div class="company-logo">V</div>
+                        </div>
+                        <div style="flex: 1; margin-left: 1.5rem;">
+                            <h3 class="experience-title">Associate Product Manager</h3>
+                            <p class="company-name">Visa</p>
+                            <p class="experience-date">Aug 2022 - Aug 2024 · 2 years</p>
+                        </div>
+                        <div class="expand-icon">+</div>
+                    </div>
+                    <p class="experience-description">
+                        Rotated through four different product teams, building automation tools and leading platform transitions.
+                    </p>
+                    <div class="experience-details">
+                        <div class="detail-section">
+                            <h4 class="detail-heading">What I Did</h4>
+                            <div class="detail-items">
+                                <div class="detail-item">
+                                    <span class="detail-marker">&rarr;</span>
+                                    Rotated through four different product teams throughout the business
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-marker">&rarr;</span>
+                                    Automated the process to create business cases and ROI analysis by implementing Python scripts
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-marker">&rarr;</span>
+                                    Wrote an algorithm to accurately pair APMs and rotation managers based on their preferences
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-marker">&rarr;</span>
+                                    Facilitated the transition of customer portals by analyzing and restructuring data streams to align with the new platform, leveraging extensive data architecture knowledge
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Data Architecture</span>
+                            <span class="tag">Automation</span>
+                            <span class="tag">Portal Migration</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dendritic Health AI -->
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <div>
+                            <div class="company-logo">🌳</div>
+                        </div>
+                        <div style="flex: 1; margin-left: 1.5rem;">
+                            <h3 class="experience-title">Product and Customer Insights Lead</h3>
+                            <p class="company-name">Dendritic Health AI</p>
+                            <p class="experience-date">Feb 2025 - Present · 1 month</p>
+                        </div>
+                        <div class="expand-icon">+</div>
+                    </div>
+                    <p class="experience-description">
+                        Leading product vision and customer discovery for a generative AI medical education platform.
+                    </p>
+                    <div class="experience-details">
+                        <div class="detail-section">
+                            <h4 class="detail-heading">What I Do</h4>
+                            <div class="detail-items">
+                                <div class="detail-item">
+                                    <span class="detail-marker">→</span>
+                                    Conduct user interviews with healthcare professionals and medical students to identify pain points in clinical learning workflows
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-marker">→</span>
+                                    Translate insights into product requirements and feature specs that guide engineering priorities
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-marker">→</span>
+                                    Build feedback loops between early adopters and the development team to iterate rapidly on AI-generated case studies, diagnostic simulations, and personalized learning paths
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-tags">
+                            <span class="tag">Gen AI</span>
+                            <span class="tag">HealthTech</span>
+                            <span class="tag">User Interviews</span>
+                            <span class="tag">Customer Discovery</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BankBlackUSA -->
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <div>
+                            <div class="company-logo">BB</div>
+                        </div>
+                        <div style="flex: 1; margin-left: 1.5rem;">
+                            <h3 class="experience-title">BankBlackUSA Intern</h3>
+                            <p class="company-name">BankBlackUSA</p>
+                            <p class="experience-date">May 2022 - Aug 2022 · 4 months</p>
+                        </div>
+                        <div class="expand-icon">+</div>
+                    </div>
+                    <p class="experience-description">
+                        Built a comprehensive dataset and interactive dashboards highlighting the impact of Black-owned financial institutions.
+                    </p>
+                    <div class="experience-details">
+                        <div class="detail-section">
+                            <h4 class="detail-heading">What I Did</h4>
+                            <div class="detail-items">
+                                <div class="detail-item">
+                                    <span class="detail-marker">→</span>
+                                    Collected and structured data on Black-owned financial institutions across the U.S., covering lending practices, community reinvestment, and deposit growth
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-marker">→</span>
+                                    Analyzed the economic impact these institutions have on underserved communities, uncovering trends in financial inclusion and wealth-building
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-marker">→</span>
+                                    Designed and published interactive Tableau dashboards making findings accessible to stakeholders, policymakers, and community advocates
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-tags">
+                            <span class="tag">Tableau</span>
+                            <span class="tag">Data Analysis</span>
+                            <span class="tag">Financial Inclusion</span>
+                            <span class="tag">Data Viz</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UMich Athletics -->
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <div>
+                            <div class="company-logo">M</div>
+                        </div>
+                        <div style="flex: 1; margin-left: 1.5rem;">
+                            <h3 class="experience-title">Student Data Analyst</h3>
+                            <p class="company-name">University of Michigan Athletics</p>
+                            <p class="experience-date">Jan 2021 - Apr 2022 · 1 year 4 months</p>
+                            <p class="experience-date">Ann Arbor, Michigan, United States</p>
+                        </div>
+                        <div class="expand-icon">+</div>
+                    </div>
+                    <p class="experience-description">
+                        Produced advanced performance and scouting reports for the Michigan Football program's coaching staff.
+                    </p>
+                    <div class="experience-details">
+                        <div class="detail-section">
+                            <h4 class="detail-heading">What I Did</h4>
+                            <div class="detail-items">
+                                <div class="detail-item">
+                                    <span class="detail-marker">→</span>
+                                    Collaborated with a team of five analysts to deliver weekly reports that directly informed coaching decisions during the 2021 season
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-marker">→</span>
+                                    Built automated data pipelines using SQL to extract play-by-play, scouting, and player performance data from internal databases
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-marker">→</span>
+                                    Performed statistical analysis on opponent tendencies, player efficiency metrics, and game-day strategy scenarios
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-tags">
+                            <span class="tag">SQL</span>
+                            <span class="tag">Sports Analytics</span>
+                            <span class="tag">Data Pipelines</span>
+                            <span class="tag">Statistical Analysis</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UMich Instructional Aide -->
+                <div class="experience-card">
+                    <div class="experience-header">
+                        <div>
+                            <div class="company-logo">M</div>
+                        </div>
+                        <div style="flex: 1; margin-left: 1.5rem;">
+                            <h3 class="experience-title">Data Programming Instructional Aide</h3>
+                            <p class="company-name">University of Michigan - School of Information</p>
+                            <p class="experience-date">Aug 2020 - Apr 2022 · 1 year 9 months</p>
+                            <p class="experience-date">Ann Arbor, Michigan, United States</p>
+                        </div>
+                        <div class="expand-icon">+</div>
+                    </div>
+                    <p class="experience-description">
+                        Supported 200+ students across multiple semesters in mastering Python and data science fundamentals.
+                    </p>
+                    <div class="experience-details">
+                        <div class="detail-section">
+                            <h4 class="detail-heading">What I Did</h4>
+                            <div class="detail-items">
+                                <div class="detail-item">
+                                    <span class="detail-marker">→</span>
+                                    Taught Python data structures, web scraping, REST APIs, and visualization libraries (Matplotlib, Pandas, BeautifulSoup)
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-marker">→</span>
+                                    Led weekly office hours and lab sessions, developing supplementary learning materials to reinforce lecture concepts
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-marker">→</span>
+                                    Provided one-on-one mentorship to students, contributing to improved course completion rates and technical confidence
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Teaching</span>
+                            <span class="tag">Web Scraping</span>
+                            <span class="tag">Pandas</span>
+                            <span class="tag">Mentorship</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Projects</h2>
+                <p class="section-subtitle">
+                    Hands-on builds where I take AI products from concept to working software.
+                </p>
+            </div>
+
+            <div class="project-card">
+                <div class="project-banner">
+                    <div class="project-banner-text">
+                        Peregrine AI Tutor
+                        <span>AI-Powered Education Platform</span>
+                    </div>
+                </div>
+                <div class="project-body">
+                    <h3 class="project-title">Peregrine AI Tutor Platform</h3>
+                    <p class="project-desc">
+                        A full-stack AI tutoring platform that adapts to each student's grade level, interests, and learning style.
+                        Students interact with specialized AI tutors&mdash;covering math, science, reading, and general topics&mdash;through
+                        natural voice and text conversations. The platform generates personalized stories and chapters, tracks progress
+                        with a gamification system, and provides a parent dashboard for real-time learning analytics.
+                    </p>
+
+                    <div class="project-features">
+                        <div class="project-feature">
+                            <span class="project-feature-marker">&rarr;</span>
+                            Specialized AI tutors with distinct teaching personas
+                        </div>
+                        <div class="project-feature">
+                            <span class="project-feature-marker">&rarr;</span>
+                            Voice integration via Web Speech API
+                        </div>
+                        <div class="project-feature">
+                            <span class="project-feature-marker">&rarr;</span>
+                            Custom story &amp; chapter generation
+                        </div>
+                        <div class="project-feature">
+                            <span class="project-feature-marker">&rarr;</span>
+                            Gamification with XP, badges &amp; streaks
+                        </div>
+                        <div class="project-feature">
+                            <span class="project-feature-marker">&rarr;</span>
+                            Parent dashboard with real-time analytics
+                        </div>
+                        <div class="project-feature">
+                            <span class="project-feature-marker">&rarr;</span>
+                            Adaptive difficulty by grade level
+                        </div>
+                    </div>
+
+                    <div class="project-tech">
+                        <span class="tag">Python</span>
+                        <span class="tag">FastAPI</span>
+                        <span class="tag">OpenAI GPT</span>
+                        <span class="tag">SQLAlchemy</span>
+                        <span class="tag">Web Speech API</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Tailwind CSS</span>
+                        <span class="tag">Vercel</span>
+                    </div>
+
+                    <a href="https://peregrine-ai-tutor-platform.vercel.app/" class="project-link" target="_blank">
+                        View Live Site &rarr;
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Skills & Expertise</h2>
+                <p class="section-subtitle">
+                    Core competencies in product management, data analysis, and technology.
+                </p>
+            </div>
+
+            <div class="skills-container">
+                <div class="skill-card">
+                    <div class="skill-icon">🤖</div>
+                    <div class="skill-name">Gen AI Product</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">📊</div>
+                    <div class="skill-name">Data Analysis</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🎯</div>
+                    <div class="skill-name">Product Management</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">📈</div>
+                    <div class="skill-name">Microsoft Excel</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🐍</div>
+                    <div class="skill-name">Python</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">💾</div>
+                    <div class="skill-name">SQL</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">📊</div>
+                    <div class="skill-name">Tableau</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">⚽</div>
+                    <div class="skill-name">Soccer</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Education</h2>
+                <p class="section-subtitle">
+                    Academic foundation in information analysis and data science.
+                </p>
+            </div>
+
+            <div class="education-card">
+                <div class="education-header">
+                    <div>
+                        <div class="school-logo">M</div>
+                    </div>
+                    <div style="flex: 1; margin-left: 1.5rem;">
+                        <h3 class="degree-title">Bachelor of Science - BS, Information Analysis</h3>
+                        <p class="school-name">University of Michigan - School of Information</p>
+                        <p class="experience-date">2020 - 2022</p>
+                        <p class="experience-description" style="margin-top: 0.5rem; font-size: 0.9rem;">Focused on data science, information systems, and human-computer interaction. Coursework included database management, machine learning, data mining, and UX research methods.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="education-card">
+                <div class="education-header">
+                    <div>
+                        <div class="school-logo">M</div>
+                    </div>
+                    <div style="flex: 1; margin-left: 1.5rem;">
+                        <h3 class="degree-title">University of Michigan College of Literature, Science, and the Arts</h3>
+                        <p class="school-name">University of Michigan</p>
+                        <p class="experience-date">2018 - 2020</p>
+                        <p class="experience-description" style="margin-top: 0.5rem; font-size: 0.9rem;">Completed foundational studies in mathematics, statistics, and computer science before transferring to the School of Information.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 3rem; padding: 2rem; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);">
+                <h3 style="font-size: 1.2rem; color: var(--primary); margin-bottom: 1rem; font-weight: 700;">Certifications</h3>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div class="company-logo" style="background: linear-gradient(135deg, #ff6b6b, #ee5a6f);">QL</div>
+                    <div>
+                        <div style="font-weight: 700; color: var(--primary);">SAFe Product Owner/Product Manager Course (5.0)</div>
+                        <div style="color: #666; font-size: 0.9rem;">Quicken Loans · Issued Aug 2020</div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="contact-title">Let's Connect</h2>
+            <p class="contact-text">
+                Interested in Gen AI, product management, or just want to chat?<br>
+                I'd love to hear from you.
+            </p>
+            
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/nikolas-palafox/" class="social-link" target="_blank" title="LinkedIn">in</a>
+                <a href="mailto:nikpalafox@gmail.com" class="social-link" title="Email">@</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Nikolas Palafox. Built with passion and code.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Event delegation for experience card expand/collapse
+            var grid = document.querySelector('.experience-grid');
+            if (grid) {
+                grid.addEventListener('click', function(e) {
+                    var card = e.target.closest('.experience-card');
+                    if (!card) return;
+                    
+                    var wasExpanded = card.classList.contains('expanded');
+                    
+                    // Close all other cards
+                    var allCards = document.querySelectorAll('.experience-card');
+                    for (var i = 0; i < allCards.length; i++) {
+                        if (allCards[i] !== card) {
+                            allCards[i].classList.remove('expanded');
+                        }
+                    }
+                    
+                    // Toggle clicked card
+                    if (wasExpanded) {
+                        card.classList.remove('expanded');
+                    } else {
+                        card.classList.add('expanded');
+                    }
+                });
+            }
+
+            // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add intersection observer for scroll animations
+        var observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections
+        document.querySelectorAll('.experience-card, .skill-card, .education-card').forEach(function(el) {
+            observer.observe(el);
+        });
+
+        }); // end DOMContentLoaded
+    </script>
+</body>
+</html>
